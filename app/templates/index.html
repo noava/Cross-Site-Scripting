@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="static/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Cross Site Scripting</title>
+</head>
+<body>
+    <h1>User Comments</h1>
+    <ul>
+        {% for entry in data %}
+            <li>{{ entry[1] }}: {{ entry[2]|safe }}</li>
+        {% endfor %}
+    </ul>
+    <form action="/add_comment" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <br>
+        <label for="comment">Comment:</label>
+        <textarea id="comment" name="comment" required></textarea>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
