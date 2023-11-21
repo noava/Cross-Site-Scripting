@@ -6,6 +6,13 @@ import sqlite3
 @app.route('/')
 def index():
     conn = sqlite3.connect('database.db')
+    conn.execute('''
+        CREATE TABLE IF NOT EXISTS user_data (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT,
+            comment TEXT
+        )
+    ''')
     data = conn.execute('SELECT * FROM user_data').fetchall()
     conn.close()
     return render_template('index.html', data=data)
